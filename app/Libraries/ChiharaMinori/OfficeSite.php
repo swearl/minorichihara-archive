@@ -101,4 +101,16 @@ class OfficeSite {
 
         return $contents;
     }
+
+    public function downloadImage($image) {
+        $url = parse_url($image);
+        $tmp = explode('/', $url['path']);
+        $filename = array_pop($tmp);
+        $path = WRITEPATH . 'uploads/images/';
+        $res = $this->client->get($image);
+        $data = $res->getBody()->getContents();
+        write_file($path . $filename, $data);
+
+        return $filename;
+    }
 }
