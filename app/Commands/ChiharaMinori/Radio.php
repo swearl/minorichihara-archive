@@ -3,7 +3,7 @@
 namespace App\Commands\ChiharaMinori;
 
 use App\Entities\Radio as EntitiesRadio;
-use App\Libraries\ChiharaMinori\OfficeSite;
+use App\Libraries\ChiharaMinori\OfficialSite;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 
@@ -16,7 +16,7 @@ class Radio extends BaseCommand {
     private $_files = [];
 
     public function run(array $params) {
-        $CMOS = new OfficeSite();
+        $CMOS = new OfficialSite();
         $this->_getRadioFiles();
         for ($i = 1; $i < 4; ++$i) {
             CLI::write(CLI::color('[下载第', 'green') . $i . CLI::color('页]', 'green'));

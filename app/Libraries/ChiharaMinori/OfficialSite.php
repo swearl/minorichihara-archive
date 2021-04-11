@@ -8,7 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use PHPHtmlParser\Dom;
 
-class OfficeSite {
+class OfficialSite {
     const BASE_URL = 'https://www.minorichihara.com';
 
     /**

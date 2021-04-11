@@ -4,7 +4,7 @@ namespace App\Commands\ChiharaMinori;
 
 use App\Entities\Download as EntitiesDownload;
 use App\Entities\DownloadDetail as EntitiesDownloadDetail;
-use App\Libraries\ChiharaMinori\OfficeSite;
+use App\Libraries\ChiharaMinori\OfficialSite;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 
@@ -15,7 +15,7 @@ class Download extends BaseCommand {
     protected $usage = 'cm:download';
 
     public function run(array $params) {
-        $CMOS = new OfficeSite();
+        $CMOS = new OfficialSite();
         CLI::write(CLI::color('[下载封面页]', 'red'));
         CLI::write(CLI::color('[下载页面]', 'green') . CLI::color('download', 'light_gray'));
         $items = $CMOS->getDownload();
