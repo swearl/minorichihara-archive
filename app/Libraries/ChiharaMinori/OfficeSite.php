@@ -63,6 +63,12 @@ class OfficeSite {
         }, $items);
     }
 
+    public function getDownloadDetail($id) {
+        $contents = $this->getPostsContent('download', $id);
+
+        return DomParser::getDownloadDetail($contents);
+    }
+
     public function getListContent($type, int $page = 1) {
         $contents = $this->getPostsContent($type, '', $page);
 
