@@ -43,6 +43,25 @@ class DomParser {
         return $result;
     }
 
+    public static function getVideo(HtmlNode $contents) {
+        $items = self::getItems($contents, '.post-item');
+        $result = [];
+        foreach ($items as $item) {
+            $uri = self::getFirst($item, 'a')->getAttribute('href') ?? '';
+            if ('' === $uri) {
+                continue;
+            }
+            $tmp = explode('/', $uri);
+            $id = array_pop($tmp);
+            $cover = self::getFirst($item, '.post-img')->getAttribute('src') ?? '';
+            $title = self::getFirst($item, '.post-title')->innerHtml();
+            $date = self::convertDate(self::getFirst($item, '.post-date')->innerHtml());
+            $result[] = compact('id', 'uri', 'cover', 'title', 'date');
+        }
+
+        return $result;
+    }
+
     public static function getDownloadDetail(HtmlNode $contents) {
         $types = ['pc', 'sp'];
         $result = [];

@@ -76,6 +76,13 @@ class OfficeSite {
         return $items;
     }
 
+    public function getVideo(int $page = 1) {
+        $contents = $this->getPostsContent('video', '', $page);
+        $items = DomParser::getVideo($contents);
+
+        return $items;
+    }
+
     public function getListContent($type, int $page = 1) {
         $contents = $this->getPostsContent($type, '', $page);
 
