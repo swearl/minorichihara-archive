@@ -69,6 +69,13 @@ class OfficeSite {
         return DomParser::getDownloadDetail($contents);
     }
 
+    public function getRadio(int $page = 1) {
+        $contents = $this->getPostsContent('radio', '', $page);
+        $items = DomParser::getRadio($contents);
+
+        return $items;
+    }
+
     public function getListContent($type, int $page = 1) {
         $contents = $this->getPostsContent($type, '', $page);
 

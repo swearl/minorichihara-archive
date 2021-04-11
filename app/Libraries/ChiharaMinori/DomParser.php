@@ -25,6 +25,24 @@ class DomParser {
         return $result;
     }
 
+    public static function getRadio(HtmlNode $contents) {
+        $items = self::getItems($contents, '.post-item');
+        $result = [];
+        foreach ($items as $item) {
+            $uri = self::getFirst($item, 'a')->getAttribute('href') ?? '';
+            if ('' === $uri) {
+                continue;
+            }
+            $tmp = explode('/', $uri);
+            $id = array_pop($tmp);
+            $title = self::getFirst($item, '.post-title')->innerHtml();
+            $date = self::convertDate(self::getFirst($item, '.post-date')->innerHtml());
+            $result[] = compact('id', 'uri', 'title', 'date');
+        }
+
+        return $result;
+    }
+
     public static function getDownloadDetail(HtmlNode $contents) {
         $types = ['pc', 'sp'];
         $result = [];
@@ -51,11 +69,7 @@ class DomParser {
     public static function getDownloadDate(string $option) {
         $dom = new Dom();
         $dom->loadStr($option);
-        $date = trim($dom->find('span')[0]->innerHTML());
-        if ('' !== $date) {
-            $tmp = explode('.', $date);
-            $date = $tmp[0] . '-' . str_pad($tmp[1], 2, '0', STR_PAD_LEFT) . '-' . str_pad($tmp[2], 2, '0', STR_PAD_LEFT);
-        }
+        $date = self::convertDate(trim($dom->find('span')[0]->innerHTML()));
 
         return $date;
     }
@@ -76,5 +90,14 @@ class DomParser {
      */
     public static function getFirst(HtmlNode $node, string $selector) {
         return $node->find($selector)[0];
+    }
+
+    public static function convertDate($date) {
+        if ('' !== $date) {
+            $tmp = explode('.', $date);
+            $date = $tmp[0] . '-' . str_pad($tmp[1], 2, '0', STR_PAD_LEFT) . '-' . str_pad($tmp[2], 2, '0', STR_PAD_LEFT);
+        }
+
+        return $date;
     }
 }
