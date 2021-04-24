@@ -27,6 +27,9 @@ class Json extends BaseCommand {
 
         $items = model('App\Models\VideoModel')->select('title, cover, date, filename, filesize, width, height')->orderBy('date desc')->asArray()->findAll();
         $this->writeJSON('video.json', $items);
+
+        $items = model('App\Models\DiscographyModel')->select('title, category, date, cover, content')->orderBy('date desc')->asArray()->findAll();
+        $this->writeJSON('discography.json', $items);
         CLI::write('完成');
     }
 
